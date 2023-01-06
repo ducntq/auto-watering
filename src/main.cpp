@@ -72,7 +72,7 @@ void setup()
   {
     String client_id = "esp8266-client-";
     client_id += String(WiFi.macAddress());
-    Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
+    Serial.printf("The client %s connects to the %s mqtt broker\n", client_id.c_str(), MQTTHOSTNAME);
     if (client.connect(client_id.c_str(), MQTTUSERNAME, MQTTPASSWORD))
     {
       Serial.println("Connected to MQTT broker");
