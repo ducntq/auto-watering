@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <properties.h>
 #include <PubSubClient.h>
 #include <pump_control.h>
