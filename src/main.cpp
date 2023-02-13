@@ -40,6 +40,27 @@ void callback(char *topic, byte *payload, unsigned int length)
   }
 }
 
+void connectMqtt()
+{
+  while (!client.connected())
+  {
+    String client_id = "esp32-client-";
+    client_id += String(WiFi.macAddress());
+    Serial.printf("The client %s connects to the %s mqtt broker\n", client_id.c_str(), MQTTHOSTNAME);
+    if (client.connect(client_id.c_str(), MQTTUSERNAME, MQTTPASSWORD))
+    {
+      Serial.println("Connected to MQTT broker");
+    }
+    else
+    {
+      Serial.print("failed with state ");
+      Serial.print(client.state());
+      delay(2000);
+    }
+  }
+  client.subscribe(MQTTTOPICCONTROL);
+}
+
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -68,26 +89,12 @@ void setup()
 
   client.setServer(MQTTHOSTNAME, MQTTPORT);
   client.setCallback(callback);
-  while (!client.connected())
-  {
-    String client_id = "esp8266-client-";
-    client_id += String(WiFi.macAddress());
-    Serial.printf("The client %s connects to the %s mqtt broker\n", client_id.c_str(), MQTTHOSTNAME);
-    if (client.connect(client_id.c_str(), MQTTUSERNAME, MQTTPASSWORD))
-    {
-      Serial.println("Connected to MQTT broker");
-    }
-    else
-    {
-      Serial.print("failed with state ");
-      Serial.print(client.state());
-      delay(2000);
-    }
-  }
-  client.subscribe(MQTTTOPICCONTROL);
+  connectMqtt();
 }
 
 void loop()
 {
   client.loop();
+  if (!client.connected())
+    connectMqtt();
 }
