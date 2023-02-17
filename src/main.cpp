@@ -1,10 +1,13 @@
 #include <Arduino.h>
+#ifdef ESP32
 #include <WiFi.h>
+#else
+#include <ESP8266WiFi.h>
+#endif
 #include <properties.h>
 #include <PubSubClient.h>
 #include <pump_control.h>
 
-// Written for esp8266 only
 WiFiClient espClient;
 PubSubClient client(espClient);
 bool isPumpRunning = false;
