@@ -66,11 +66,12 @@ void connectMqtt()
 
 void setup()
 {
+  Serial.println("Setting up...");
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(RELAYPIN, OUTPUT);
-  Serial.begin(9600);
+  Serial.begin(115200);
   delay(10);
-  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(RELAYPIN, OFF);
   Serial.println('\n');
 
   WiFi.begin(WIFISSID, WIFIPWD);
@@ -93,11 +94,16 @@ void setup()
   client.setServer(MQTTHOSTNAME, MQTTPORT);
   client.setCallback(callback);
   connectMqtt();
+  Serial.println("Ready");
 }
 
 void loop()
 {
+  Serial.println("Loop");
   client.loop();
   if (!client.connected())
     connectMqtt();
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(1000);
+  digitalWrite(LED_BUILTIN, HIGH);
 }
