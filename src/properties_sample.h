@@ -1,11 +1,11 @@
-const char *WIFISSID = "WIFI NAME";
-const char *WIFIPWD = "WIFI PASSWORD";
+const char *WIFISSID = "DucNguyen2.4";
+const char *WIFIPWD = "9988776655";
 
-const char *MQTTHOSTNAME = "111.111.111.111";
+const char *MQTTHOSTNAME = "192.168.0.201";
 const int MQTTPORT = 1883;
-const char *MQTTUSERNAME = "water";
-const char *MQTTPASSWORD = "312321";
+const char *MQTTUSERNAME = "water_pub";
+const char *MQTTPASSWORD = "tr41n1ng";
 const char *MQTTTOPICCONTROL = "pump/control";
 const char *MQTTTOPICSTATE = "pump/state";
 
-const int RELAYPIN = 14; // D5 breakout for the WEMOS D1 mini
+const int RELAYPIN = 0; 

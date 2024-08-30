@@ -2,5 +2,5 @@
 
 void pumpControl(bool state, int pin)
 {
-    digitalWrite(pin, state ? ON : OFF);
+    digitalWrite(pin, state ? LOW : HIGH);
 }

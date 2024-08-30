@@ -49,7 +49,7 @@ void connectMqtt()
   {
     String client_id = "esp32-client-";
     client_id += String(WiFi.macAddress());
-    Serial.printf("The client %s connects to the %s mqtt broker\n", client_id.c_str(), MQTTHOSTNAME);
+    Serial.printf("The client %s connects to the %s : %d mqtt broker\n", client_id.c_str(), MQTTHOSTNAME, MQTTPORT);
     if (client.connect(client_id.c_str(), MQTTUSERNAME, MQTTPASSWORD))
     {
       Serial.println("Connected to MQTT broker");
@@ -71,7 +71,7 @@ void setup()
   pinMode(RELAYPIN, OUTPUT);
   Serial.begin(115200);
   delay(10);
-  digitalWrite(RELAYPIN, OFF);
+  digitalWrite(RELAYPIN, true);
   Serial.println('\n');
 
   WiFi.begin(WIFISSID, WIFIPWD);
