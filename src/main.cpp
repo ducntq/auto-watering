@@ -11,6 +11,7 @@
 WiFiClient espClient;
 PubSubClient client(espClient);
 bool isPumpRunning = false;
+bool isLooping = false;
 void callback(char *topic, byte *payload, unsigned int length)
 {
   bool oldState = isPumpRunning;
@@ -99,10 +100,16 @@ void setup()
 
 void loop()
 {
-  Serial.println("Loop");
+  if (!isLooping) {
+    Serial.println("Start looping!");
+    isLooping = true;
+  }
   client.loop();
   if (!client.connected())
+  {
+    Serial.println("MQTT connection is disconnected. Trying to reconnect!");
     connectMqtt();
+  }
   digitalWrite(LED_BUILTIN, LOW);
   delay(1000);
   digitalWrite(LED_BUILTIN, HIGH);
